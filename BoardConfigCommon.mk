@@ -237,12 +237,18 @@ $(foreach sku, $(call to-upper, $(DEVICE_MANIFEST_SKUS)), \
     ))
 
 ifneq ($(TARGET_NFC_SUPPORTED_SKUS),)
+DEVICE_MANIFEST_FILE += \
+    $(COMMON_PATH)/vintf/manifest.xml \
+    $(COMMON_PATH)/vintf/manifest_xiaomi.xml \
+    $(COMMON_PATH)/vintf/device_manifest_nfc.xml
+
 ODM_MANIFEST_SKUS += $(TARGET_NFC_SUPPORTED_SKUS)
 $(foreach nfc_sku, $(call to-upper, $(TARGET_NFC_SUPPORTED_SKUS)), \
     $(eval ODM_MANIFEST_$(nfc_sku)_FILES += $(COMMON_PATH)/vintf/manifest_nfc.xml))
 endif
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+    $(COMMON_PATH)/vintf/framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
     vendor/lineage/config/device_framework_matrix.xml
